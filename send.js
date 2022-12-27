@@ -8,7 +8,7 @@ dosomething: async function data() {
 const alldata = await Users.find();
     alldata.forEach(data => {
       let mailOptions = {
-         from: 'shreyanshporwal469@gmail.com',
+         from: 'youremail',
          to: data.email,
          subject: 'Email from Node-App: A Test Message!',
          text: 'Some content to send'
@@ -17,14 +17,14 @@ const alldata = await Users.find();
    let transporter = nodemailer.createTransport({
          service: 'gmail',
          auth: {
-           user: 'shreyanshporwal469@gmail.com',
-           pass: 'zzjdntvskuhdykft'
+           user: 'youremail',
+           pass: 'yourpassword'
          }
      });
 
-      cron.schedule('* * * * 1', () => {
+      cron.schedule('* * 1 * *', () => {
    // Send e-mail
-   console.log('running a task every minute');
+   console.log('running a task every day');
    transporter.sendMail(mailOptions, function(error, info){
          if (error) {
            console.log(error);
