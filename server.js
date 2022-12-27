@@ -8,7 +8,7 @@ const moment = require('moment');
 const nodemailer = require('nodemailer');
 
 mongoose.set('strictQuery', false);
-mongoose.connect('mongodb+srv://share:shreyansh@cluster0.zls4bf8.mongodb.net/?retryWrites=true&w=majority',
+mongoose.connect('process.env.URL',
  {useNewUrlParser: true, useUnifiedTopology: true});
 
 const connection = mongoose.connection;
@@ -21,9 +21,8 @@ app.set('view engine', 'ejs');
 app.use(urlencoded({extended: true}));
 
 
-// send.dosomething();
+send.dosomething();
 app.get('/', (req, res) => {
-  //send.dosomething();
     res.render('home');
 })
 
@@ -32,8 +31,7 @@ app.post('/', async (req, res) => {
     console.log(Users.length);
     try {
     const data = new Users({
-        email: req.body.email,
-        number: Users.length+2
+        email: req.body.email
     })
 
    const key = await data.save();
@@ -41,7 +39,7 @@ app.post('/', async (req, res) => {
 
 
    let mailOptions = {
-    from: 'shreyanshporwal469@gmail.com',
+    from: 'youremail',
     to: data.email,
     subject: 'Email from Node-App: A Test Message!',
     text: 'Some content to send'
@@ -50,8 +48,8 @@ app.post('/', async (req, res) => {
 let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'shreyanshporwal469@gmail.com',
-      pass: 'zzjdntvskuhdykft'
+      user: 'youremail',
+      pass: 'yourpassword'
     }
 });
 
@@ -77,5 +75,3 @@ app.get('/admin', async (req, res) => {
 })
 
 app.listen(3000);
-
-//mongodb+srv://share:shreyansh@cluster0.zls4bf8.mongodb.net/?retryWrites=true&w=majority
